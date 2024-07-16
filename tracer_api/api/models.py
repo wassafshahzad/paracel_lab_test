@@ -1,6 +1,4 @@
-from typing import Iterable
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
 from api.utils import generate_tracking_numbers
@@ -12,27 +10,7 @@ class BaseModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        abstract: True
-
-
-class AddressModel(BaseModel):
-
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="addresses", blank=True, null=True
-    )
-    street = models.CharField(max_length=255)
-    city = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=20)
-    country = models.CharField(max_length=100)
-
-    def __str__(self) -> str:
-        """Return human readable representation.
-
-        Returns:
-            str: A string with human readable representation.
-        """
-
-        return f"{self.street}, {self.postal_code}, {self.city}, {self.country}"
+        abstract= True
 
 
 class ArticleModel(BaseModel):
@@ -56,12 +34,10 @@ class OrderModel(BaseModel):
         TRANSIT = "transit"
         SCANNED = "scanned"
 
-    sender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="sent_deliveries"
-    )
-    receiver = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="received_deliveries"
-    )
+    sender = models.CharField(max_length=255, blank=False, null= False)
+
+    receiver = models.CharField(max_length=255, blank=False, null= False)
+
     scheduled_for   = models.DateTimeField()
     delivered_at    = models.DateTimeField(blank=True, null=True)
     status          = models.CharField(choices=Status.choices, default=Status.SCANNED, max_length=20)
@@ -72,13 +48,13 @@ class OrderModel(BaseModel):
     def save(self, *args,  **kwargs) -> None:
         """Override save method to generate tracking number."""
 
-        if not  self.tracking_number:
+        if not self.tracking_number:
             self.tracking_number = generate_tracking_numbers()
         return super().save(*args,  **kwargs)
 
 
     def __str__(self):
-        return f"Delivery from {self.sender.username} to {self.receiver.username} - Status: {self.status}"
+        return f"Delivery from {self.sender} to {self.receiver} - Status: {self.status}"
 
 
 class OrderItem(models.Model):
