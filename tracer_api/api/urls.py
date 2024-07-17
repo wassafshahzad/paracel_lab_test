@@ -6,6 +6,5 @@ urlpatterns = [
     path("ping/", ping),
     path("order_items/", ListOrderItemsAPIView.as_view()),
     path("orders/", ListOrderAPIView.as_view()),
-    path("orders/<str:carrier>", ListOrderAPIView.as_view()),
     path("orders/<str:tracking_number>/", RetrieveOrderAPIView.as_view()),
 ]

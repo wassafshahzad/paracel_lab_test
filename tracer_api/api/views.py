@@ -22,9 +22,17 @@ class ListOrderAPIView(ListAPIView):
 
     def get_queryset(self) -> QuerySet:
         carrier = self.kwargs.get("carrier", None)
+        filters = {}
+        
+        carrier         = self.request.query_params.get("carrier", None)        
+        tracking_number = self.request.query_params.get("tracking_number", None)        
+
         if carrier:
-            return OrderModel.objects.filter(carrier__name = carrier)
-        return  OrderModel.objects.all()
+            filters["carrier"] = carrier
+        if tracking_number:
+            filters["tracking_number"] = tracking_number
+
+        return  OrderModel.objects.filter(**filters)
     
 
 class RetrieveOrderAPIView(RetrieveAPIView):
