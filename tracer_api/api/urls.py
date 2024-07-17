@@ -5,6 +5,6 @@ from api.views import ping, ListOrderAPIView, ListOrderItemsAPIView, RetrieveOrd
 urlpatterns = [
     path("ping/", ping),
     path("order_items/", ListOrderItemsAPIView.as_view()),
-    path("orders/", ListOrderAPIView.as_view()),
-    path("orders/<str:tracking_number>/", RetrieveOrderAPIView.as_view()),
+    path("orders/", ListOrderAPIView.as_view(), name="orders-list"),
+    path("orders/<str:tracking_number>/", RetrieveOrderAPIView.as_view(), name="orders-detail"),
 ]
