@@ -1,7 +1,7 @@
 ## Running theApplication using Docker
 Make sure you have docker and docker-compose installed. This application is dependent on postgres and redis and used docker containers to quaickly spin them up.
 
-### Running the application intructions.
+### Running the application instructions.
  - Start docker engine if its not already running.
  - Open a terminal in the parcel_lab_test folder.
  - Run **docker-compose build** and **docker-compose up**
@@ -11,3 +11,9 @@ Make sure you have docker and docker-compose installed. This application is depe
 - Make sure the web service is running.
 - Attach to the web service using the command **docker-compose exec web bash**
 - Run the command **Python manage.py tests**
+
+### Documentation
+The API is documented using SWAGGER and you can visit **http://localhost:8000/** for the documentation.
+
+### Data Import
+I have imported some of the data from the csv file using migrations.

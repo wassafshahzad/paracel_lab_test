@@ -11,6 +11,9 @@ class Migration(migrations.Migration):
             article(name="Laptop", price=800, sku="LP123"),
             article(name="Monitor", price=200, sku="MT789"),
             article(name="Mouse", price=25, sku="MO456"),
+            article(name="Keyboard", price=50, sku="KB012"),
+            article(name="Laptop", price=900, sku="LP345"),
+            article(name="Headphones", price=100, sku="HP678"),
 
         ]
         with transaction.atomic():

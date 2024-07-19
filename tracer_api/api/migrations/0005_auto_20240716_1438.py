@@ -15,18 +15,31 @@ class Migration(migrations.Migration):
 
 
         ordersitems = [
+                
                 order_item(
                 articles = article.objects.get(sku="LP123"),
                 quantity = 1,
                 order = order_model.objects.get(tracking_number = "TN12345678")),
+                
                 order_item(
                 articles = article.objects.get(sku="MO456"),
                 quantity = 1,
                 order = order_model.objects.get(tracking_number = "TN12345678")),
+                
                 order_item(
                 articles = article.objects.get(sku="MT789"),
                 quantity = 1,
                 order = order_model.objects.get(tracking_number = "TN12345679")),
+                
+                order_item(
+                articles = article.objects.get(sku="KB012"),
+                quantity = 1,
+                order = order_model.objects.get(tracking_number = "TN12345680")),
+                
+                order_item(
+                articles = article.objects.get(sku="MO456"),
+                quantity = 1,
+                order = order_model.objects.get(tracking_number = "TN12345680")),
                 
         ]
         with transaction.atomic():

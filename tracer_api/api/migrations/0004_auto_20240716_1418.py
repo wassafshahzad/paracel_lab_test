@@ -15,8 +15,12 @@ class Migration(migrations.Migration):
             [
                 "Street 1, 10115 Berlin, Germany",
                 "Street 10, 75001 Paris, France",
+                "Street 3, 80331 Munich, Germany",
             ],
-            ["Street 5, 28013 Madrid, Spain", "Street 2, 20144 Hamburg, Germany"],
+            [   "Street 5, 28013 Madrid, Spain", 
+                "Street 2, 20144 Hamburg, Germany",
+                "Street 5, 28013 Madrid, Spain"
+            ],
         ]
 
         orders = [
@@ -35,7 +39,17 @@ class Migration(migrations.Migration):
                     status="inbound-scan",
                     carrier = carrier.objects.get(name="UPS"),
                     tracking_number = "TN12345679"
-                )
+                ),
+                order_model(
+                    sender=addresses[0][2],
+                    receiver=addresses[1][2],
+                    scheduled_for=datetime.now(),
+                    status="delivery",
+                    carrier = carrier.objects.get(name="DPD"),
+                    tracking_number = "TN12345680"
+                ),
+                
+
         ]
         with transaction.atomic():
             order_model.objects.bulk_create(orders)
